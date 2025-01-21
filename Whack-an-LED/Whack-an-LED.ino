@@ -18,7 +18,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   // check if half a second has passed since last mole appearance
   if (millis() > start_time + 500) {
-    //reset mole selection
+    // reset mole selection
     digitalWrite(mole, LOW);
     mole = random(2, 5);
     digitalWrite(mole, HIGH);

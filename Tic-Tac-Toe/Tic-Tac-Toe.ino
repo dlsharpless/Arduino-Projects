@@ -47,7 +47,7 @@ void checkBoard() {
   checkLine(2, 5, 8);
   checkLine(0, 4, 8);
   checkLine(2, 4, 6);
-  //search for full board
+  // search for full board
   bool full = true;
   for (int i = 0; i < 9; i++) {
     if (board[i] != 'X' && board[i] != 'O') {
