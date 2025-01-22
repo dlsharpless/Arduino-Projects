@@ -7,6 +7,7 @@ void setup() {
 }
 
 void showBoard() {
+  // print the tic-tac-toe board
   for (int i = 0; i < 9; i++) {
     Serial.print(board[i]);
     if (i % 3 == 2) {
@@ -18,6 +19,7 @@ void showBoard() {
 }
 
 void reset() {
+  // reset the game conditions
   for (int i = 0; i < 9; i++) {
     board[i] = i + '1';
   }
@@ -29,6 +31,7 @@ void reset() {
 }
 
 void checkLine(int a, int b, int c) {
+  // check for matches in given spaces
   if (board[a] == board[b] && board[b] == board[c]) {
     showBoard();
     Serial.print(board[a]);
@@ -38,7 +41,7 @@ void checkLine(int a, int b, int c) {
 }
 
 void checkBoard() {
-  // search for win/loss
+  // search for three in a row
   checkLine(0, 1, 2);
   checkLine(3, 4, 5);
   checkLine(6, 7, 8);
@@ -64,6 +67,7 @@ void checkBoard() {
 }
 
 void goCPU() {
+  // CPU plays randomly
   int choiceCPU = random(9);
   while (board[choiceCPU] == 'X' || board[choiceCPU] == 'O') {
     choiceCPU = random(9);
@@ -78,6 +82,7 @@ void loop() {
   while (Serial.available() == 0) {
     // wait for user input
   }
+  // process user input
   int chosenIndex = Serial.readString().toInt() - 1;
   if (board[chosenIndex] == 'X' || board[chosenIndex] == 'O') {
     Serial.println("That space is already taken!");

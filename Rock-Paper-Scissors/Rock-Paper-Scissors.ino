@@ -11,12 +11,15 @@ int weapon = 0;
 bool pressed = false;
 
 String line0[9] = {
+  // Possible responses to rock
   "Rock--------Draw",
   "Paper------I win",
   "Scissors-You win",
+  // Possible responses to paper
   "Rock-----You win",
   "Paper-------Draw",
   "Scissors---I win",
+  // Possible responses to scissors
   "Rock-------I win",
   "Paper----You win",
   "Scissors----Draw"
