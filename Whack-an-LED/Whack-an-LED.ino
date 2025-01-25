@@ -29,7 +29,7 @@ void loop() {
     }
 
     // Select a random mole (0 to 2 for LED indices)
-    mole = random(0, 3);
+    mole = random(3);
     digitalWrite(ledPins[mole], HIGH);
     scored = false;
     start_time = millis();
