@@ -3,32 +3,44 @@ int mole;
 int score = 0;
 bool scored = false;
 
+// LED pins and their corresponding button pins
+const int ledPins[] = {2, 3, 4};
+const int buttonPins[] = {11, 12, 13};
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  randomSeed(analogRead(5));
-  // setup pins 2-4 as LEDs and pins 11-13 as their respective buttons
-  for (int i = 2; i < 5; i++) {
-    pinMode(i, OUTPUT);
-    pinMode(i + 9, INPUT);
+  randomSeed(analogRead(A0));
+
+  // Setup LEDs and buttons
+  for (int i = 0; i < 3; i++) {
+    pinMode(ledPins[i], OUTPUT);   // Set LED pins as OUTPUT
+    pinMode(buttonPins[i], INPUT); // Set button pins as INPUT
   }
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  // check if half a second has passed since last mole appearance
+  // Check if 500 ms has passed since the last mole appearance
   if (millis() > start_time + 500) {
-    // reset mole selection
-    digitalWrite(mole, LOW);
-    mole = random(2, 5);
-    digitalWrite(mole, HIGH);
+    // Turn off the previous mole LED
+    if (mole >= 0) {
+      digitalWrite(ledPins[mole], LOW);
+    }
+
+    // Select a random mole (0 to 2 for LED indices)
+    mole = random(0, 3);
+    digitalWrite(ledPins[mole], HIGH);
     scored = false;
     start_time = millis();
   }
-  // check if mole is whacked
-  if (digitalRead(mole + 9) == HIGH && scored == false) {
-    // count the whack
-    digitalWrite(mole, LOW);
+
+  // Check if the mole is whacked
+  if (digitalRead(buttonPins[mole]) == HIGH && scored == false) {
+    // Turn off the mole LED
+    digitalWrite(ledPins[mole], LOW);
+
+    // Update score
     score++;
     scored = true;
     Serial.println(score);
